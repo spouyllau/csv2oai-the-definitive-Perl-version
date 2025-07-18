@@ -71,7 +71,7 @@ FORMATS
 
 } elsif ($verb eq 'GetRecord') {
     if ($identifier) {
-        my ($record) = grep { $_->{identifier} eq $identifier } @records;
+        my ($record) = grep { $_->{identifier_oai} eq $identifier } @records;
         if ($record) {
             print "  <GetRecord>\n";
             print_record($record, 1);

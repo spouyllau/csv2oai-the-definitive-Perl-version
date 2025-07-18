@@ -1,6 +1,6 @@
-# Perl OAI-PMH Server
+# CSV2OAI : Serveur OAI-PMH pour fichier CSV (The definitive Perl version)
 
-Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) minimal en **Perl 5**, lisant ses données depuis un fichier **CSV** conforme au Dublin Core.
+Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) minimal en **Perl 5** (Perl vaincra !), lisant ses données depuis un fichier **CSV** conforme au format _Dublin Core Element Set_.
 
 ---
 
@@ -84,6 +84,14 @@ GET /cgi-bin/oai.pl?verb=ListRecords&metadataPrefix=oai_dc&set=set1
 - Les données sont intégralement extraites depuis `data.csv`.
 - La pagination se fait via `resumptionToken`.
 - Le script n'implémente pas les fonctionalités de `deleted`, `from` et `until` de l'OAI dans la mesure où il doit rester très léger pour les utilisateurs non spécialiste de l'OAI. Pour celles et ceux qui souhaitent une intégration complète du protocole OAI-PMH, d'autres outils sont disponibles avec une gestion plus fine (Dataverse, Omeka Classic ou S, etc.)
+
+---
+
+## Licence et citation
+
+Ce projet est open-source, voir le fichier LICENSE pour plus d'information.
+
+Citation : POUYLLAU, S. (CNRS) with Mistral 7b, _CSV2OAI : Serveur OAI-PMH pour fichier CSV (The definitive Perl version)_, juillet 2025.
 
 ---
 

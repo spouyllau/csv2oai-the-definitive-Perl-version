@@ -1,5 +1,5 @@
-set;identifier;date;title;creator;subject;description;publisher;contributor;type;format;source;language;relation;coverage;Copyrights
-set1;oai:example:1;2024-01-01;Titre 1;Auteur 1;Sujet 1;Description 1;Éditeur 1;Contributeur 1;Text;PDF;Source 1;fr;Relation 1;Couverture 1;Libre
-set1;oai:example:2;2024-02-01;Titre 2;Auteur 2;Sujet 2;Description 2;Éditeur 2;Contributeur 2;Text;PDF;Source 2;fr;Relation 2;Couverture 2;Libre
-set2;oai:example:3;2024-03-01;Titre 3;Auteur 3;Sujet 3;Description 3;Éditeur 3;Contributeur 3;Text;PDF;Source 3;en;Relation 3;Couverture 3;Libre
-set3;oai:example:4;2024-02-01;Titre 4;Auteur 4;Sujet 3;Description 4;Éditeur 3;Contributeur 4;Text;PDF;Source 4;en;Relation 4;Couverture 4;Libre
+set;identifier;date;title;creator;subject;description;publisher;contributor;type;format;source;language;relation;coverage;rights
+set1;oai:example:1;2024-01-01;Titre 1;Auteur 1;Mot-clé Sujet 1;Description 1;Éditeur 1;Contributeur 1;Text;PDF;Source 1;fr;Relation 1;Mot-clé géo ou temporel 1;CC-BY-NC 4.0
+set1;oai:example:2;2024-02-01;Titre 2;Auteur 2;Mot-clé Sujet 2;Description 2;Éditeur 2;Contributeur 2;Text;PDF;Source 2;fr;Relation 2;Mot-clé géo ou temporel 2;CC-BY-NC 4.0
+set2;oai:example:3;2024-03-01;Titre 3;Auteur 3;Mot-clé Sujet 3;Description 3;Éditeur 3;Contributeur 3;Text;PDF;Source 3;en;Relation 3;Mot-clé géo ou temporel 3;Etalab 2.0
+set3;oai:example:4;2024-02-01;Titre 4;Auteur 4;Mot-clé Sujet 3;Description 4;Éditeur 3;Contributeur 4;Text;PDF;Source 4;en;Relation 4;Mot-clé géo ou temporel 4;Copyright

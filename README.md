@@ -1,6 +1,6 @@
 # CSV2OAI : Serveur OAI-PMH pour fichier CSV (The definitive Perl version)
 
-Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) minimal en **Perl 5** (Perl vaincra !), lisant ses données depuis un fichier **CSV** conforme au format _Dublin Core Element Set_.
+Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) minimal en **Perl 5** (🐪 Perl vaincra !), lisant ses données depuis un fichier **CSV** conforme au format _Dublin Core Element Set_.
 
 ---
 

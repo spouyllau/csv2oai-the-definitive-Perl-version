@@ -4,6 +4,12 @@ use warnings;
 use CGI qw(:standard);
 use POSIX qw(strftime);
 
+###########################################
+## Author : Stéphane Pouyllau            ##
+## Date : 2025, July 18th                ##
+## Contact : stephane.pouyllau@gmail.com ##
+###########################################
+
 print header(-type => 'text/xml', -charset => 'utf-8');
 
 my $csv_file = 'data.csv';

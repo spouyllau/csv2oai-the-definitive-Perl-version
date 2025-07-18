@@ -34,11 +34,11 @@ print "  <request verb=\"$verb\">$baseURL</request>\n";
 if ($verb eq 'Identify') {
     print <<"IDENTIFY";
   <Identify>
-    <repositoryName>Perl OAI Repository</repositoryName>
+    <repositoryName>Perl OAI Repository for CSV file</repositoryName>
     <baseURL>$baseURL</baseURL>
     <protocolVersion>2.0</protocolVersion>
     <adminEmail>admin\@example.com</adminEmail>
-    <earliestDatestamp>2000-01-01</earliestDatestamp>
+    <earliestDatestamp>1900-01-01</earliestDatestamp>
     <deletedRecord>no</deletedRecord>
     <granularity>YYYY-MM-DD</granularity>
   </Identify>

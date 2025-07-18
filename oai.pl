@@ -118,7 +118,7 @@ sub print_record {
     my ($r, $full) = @_;
     print "    <record>\n";
     print "      <header>\n";
-    print "        <identifier>$r->{identifier}</identifier>\n";
+    print "        <identifier>$r->{identifier_oai}</identifier>\n";
     print "        <datestamp>$r->{date}</datestamp>\n";
     print "        <setSpec>$r->{set}</setSpec>\n" if $r->{set};
     print "      </header>\n";
@@ -131,7 +131,7 @@ sub print_record {
                    xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/
                    http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">
 XML
-        for my $field (qw/title creator subject description publisher contributor date type format identifier source language relation coverage rights/) {
+        for my $field (qw/title identifier creator subject description publisher contributor date type format identifier source language relation coverage rights/) {
             print "          <dc:$field>$r->{$field}</dc:$field>\n" if $r->{$field};
         }
         print "        </oai_dc:dc>\n      </metadata>\n";

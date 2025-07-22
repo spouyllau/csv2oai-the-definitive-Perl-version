@@ -27,12 +27,18 @@ my $set = $q->param('set');
 my $baseURL = 'https://www.stephanepouyllau.org/oai-perl/oai.pl';
 my $date = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime);
 
+# Partie commune aux réponses XML du serveur OAI
 print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 print "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
          http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n";
 print "  <responseDate>$date</responseDate>\n";
-print "  <request verb=\"$verb\">$baseURL</request>\n";
+if ($verb eq 'Identify' || $verb eq 'ListMetadataFormats' || $verb eq 'ListSets') {
+    print "  <request verb=\"$verb\">$baseURL</request>\n";
+} else {
+    print "  <request verb=\"$verb\" metadataPrefix=\"$metadataPrefix\">$baseURL</request>\n";
+}
 
+# À adapter
 if ($verb eq 'Identify') {
     print <<"IDENTIFY";
   <Identify>
@@ -98,6 +104,7 @@ FORMATS
         }
     }
 
+#ListSets
 } elsif ($verb eq 'ListSets') {
     my %sets;
     $sets{$_->{set}}++ for grep { $_->{set} } @records;

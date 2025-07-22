@@ -4,12 +4,6 @@ use warnings;
 use CGI qw(:standard);
 use POSIX qw(strftime);
 
-###########################################
-## Author : Stéphane Pouyllau            ##
-## Date : 2025, July 18th                ##
-## Contact : stephane.pouyllau@gmail.com ##
-###########################################
-
 print header(-type => 'text/xml', -charset => 'UTF-8');
 
 my $csv_file = 'data.csv';
@@ -69,14 +63,18 @@ FORMATS
 } elsif ($verb eq 'ListIdentifiers') {
     my $offset = $resumptionToken || 0;
     my @filtered = defined($set) ? grep { $_->{set} eq $set } @records : @records;
-    my @chunk = splice(@filtered, $offset, $batch_size);
-    
+    my $end = $offset + $batch_size - 1;
+    $end = $#filtered if $end > $#filtered;
+    my @chunk = @filtered[$offset .. $end];
+
     print "  <$verb>\n";
     foreach my $r (@chunk) {
+        next unless $r;  # to igore undef
         print_identifiers($r, $verb eq 'ListIdentifiers');
     }
-    if ($offset + $batch_size < @filtered) {
-        print "    <resumptionToken>" . ($offset + $batch_size) . "</resumptionToken>\n";
+    my $next_offset = $offset + $batch_size;
+    if ($next_offset <= scalar(@filtered)) {
+        print "    <resumptionToken>$next_offset</resumptionToken>\n";
     }
     print "  </$verb>\n";
 
@@ -84,14 +82,18 @@ FORMATS
 } elsif ($verb eq 'ListRecords') {
     my $offset = $resumptionToken || 0;
     my @filtered = defined($set) ? grep { $_->{set} eq $set } @records : @records;
-    my @chunk = splice(@filtered, $offset, $batch_size);
+    my $end = $offset + $batch_size - 1;
+    $end = $#filtered if $end > $#filtered;
+    my @chunk = @filtered[$offset .. $end];
     
-    print "  <$verb>\n";
+     print "  <$verb>\n";
     foreach my $r (@chunk) {
+        next unless $r;  # to ignore undef
         print_record($r, $verb eq 'ListRecords');
     }
-    if ($offset + $batch_size < @filtered) {
-        print "    <resumptionToken>" . ($offset + $batch_size) . "</resumptionToken>\n";
+    my $next_offset = $offset + $batch_size;
+    if ($next_offset <= scalar(@filtered)) {
+        print "    <resumptionToken>$next_offset</resumptionToken>\n";
     }
     print "  </$verb>\n";
 
@@ -148,13 +150,11 @@ sub load_records {
 # Print header and metadata (if $full = true)
 sub print_identifiers {
     my ($r, $full) = @_;
-    #print "    <record>\n";
     print "      <header>\n";
     print "        <identifier>$r->{identifier_oai}</identifier>\n";
     print "        <datestamp>$r->{date}</datestamp>\n";
     print "        <setSpec>$r->{set}</setSpec>\n" if $r->{set};
     print "      </header>\n";
-    #print "    </record>\n";
 }
 
 # For ListRecords
@@ -177,7 +177,7 @@ sub print_record {
                    http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">
 XML
         # Order of DCES fields
-        for my $field (qw/title identifier creator subject description publisher contributor date type format source language relation coverage rights/) {
+        for my $field (qw/title identifier creator subject description publisher contributor date type format source language coverage rights relation/) {
             print "          <dc:$field>$r->{$field}</dc:$field>\n" if $r->{$field};
         }
         print "        </oai_dc:dc>\n      </metadata>\n";

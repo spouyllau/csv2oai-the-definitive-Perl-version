@@ -21,6 +21,8 @@ Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol 
 |----------------|-------------|
 | `oai.pl`       | Script Perl CGI principal (serveur OAI-PMH) |
 | `data.csv`     | Base de données CSV contenant les enregistrements Dublin Core |
+| `index.html` | Interface HTML de démonstration |
+| `oaiperl.png`| Logo |
 
 ---
 
@@ -75,6 +77,13 @@ http://localhost/cgi-bin/oai.pl?verb=Identify
 ```http
 GET /cgi-bin/oai.pl?verb=ListRecords&metadataPrefix=oai_dc&set=set1
 ```
+
+---
+
+
+## Demo
+
+Un serveur de démonstrateur est maintenu sur <a href="https://www.stephanepouyllau.org/oai-perl/">https://www.stephanepouyllau.org/oai-perl/</a>.
 
 ---
 

@@ -10,7 +10,7 @@ use POSIX qw(strftime);
 ## Contact : stephane.pouyllau@gmail.com ##
 ###########################################
 
-print header(-type => 'text/xml', -charset => 'utf-8');
+print header(-type => 'text/xml', -charset => 'UTF-8');
 
 my $csv_file = 'data.csv';
 my $batch_size = 10;

@@ -23,11 +23,13 @@ my $metadataPrefix = $q->param('metadataPrefix');
 my $resumptionToken = $q->param('resumptionToken');
 my $set = $q->param('set');
 
+# base URL of the server (auto of manuel)
 #my $baseURL = $q->url(-absolute => 1);
 my $baseURL = 'https://www.stephanepouyllau.org/oai-perl/oai.pl';
+
 my $date = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime);
 
-# Partie commune aux réponses XML du serveur OAI
+# Header of all OAI-PMH verbs response
 print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 print "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
          http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n";
@@ -38,7 +40,7 @@ if ($verb eq 'Identify' || $verb eq 'ListMetadataFormats' || $verb eq 'ListSets'
     print "  <request verb=\"$verb\" metadataPrefix=\"$metadataPrefix\">$baseURL</request>\n";
 }
 
-# À adapter
+# To modify following use case…
 if ($verb eq 'Identify') {
     print <<"IDENTIFY";
   <Identify>
@@ -110,7 +112,10 @@ FORMATS
     $sets{$_->{set}}++ for grep { $_->{set} } @records;
     print "  <ListSets>\n";
     for my $s (sort keys %sets) {
-        print "    <set><setSpec>$s</setSpec>\n<setName>$s</setName></set>\n";
+        print "    <set>\n";
+        print "     <setSpec>$s</setSpec>\n";
+        print "     <setName>$s</setName>\n";
+        print "    </set>\n";
     }
     print "  </ListSets>\n";
 
@@ -152,7 +157,7 @@ sub print_identifiers {
     #print "    </record>\n";
 }
 
-#For ListRecords
+# For ListRecords
 # Print header and metadata (if $full = true)
 sub print_record {
     my ($r, $full) = @_;
@@ -171,6 +176,7 @@ sub print_record {
                    xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/
                    http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">
 XML
+        # Order of DCES fields
         for my $field (qw/title identifier creator subject description publisher contributor date type format source language relation coverage rights/) {
             print "          <dc:$field>$r->{$field}</dc:$field>\n" if $r->{$field};
         }

@@ -1,37 +1,37 @@
-# CSV2OAI : Serveur OAI-PMH pour fichier CSV (The definitive Perl version)
+# CSV2OAI: OAI-PMH Server for CSV File (The definitive Perl version)
 
-Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) minimal en **Perl 5** (🐪 Perl vaincra !), lisant ses données depuis un fichier **CSV** conforme au format _Dublin Core Element Set_.
+This project implements a minimal **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) server in **Perl 5** (🐪 Perl will prevail!), reading its data from a **CSV** file formatted according to the _Dublin Core Element Set_.
 
 ---
 
-## Prérequis
+## Prerequisites
 
 - **Perl ≥ 5.10**
-- Modules Perl standards uniquement :
+- Only standard Perl modules:
   - `CGI`
   - `POSIX`
-- Serveur HTTP compatible CGI (Apache, Nginx avec FCGI, ou serveur local)
-- Fichier CSV structuré selon le format _Dublin Core Element Set_
+- CGI-compatible HTTP server (Apache, Nginx with FCGI, or local server)
+- CSV file structured according to the _Dublin Core Element Set_ format
 
 ---
 
-## Fichiers du projet
+## Project Files
 
-| Fichier        | Description |
-|----------------|-------------|
-| `oai.pl`       | Script Perl CGI principal (serveur OAI-PMH) |
-| `data.csv`     | Base de données CSV contenant les enregistrements Dublin Core |
+| File         | Description |
+|--------------|-------------|
+| `oai.pl`     | Main Perl CGI script (OAI-PMH server) |
+| `data.csv`   | CSV database containing Dublin Core records |
 
 ---
 
-## Structure du fichier `data.csv`
+## Structure of the `data.csv` File
 
-Le fichier CSV doit :
+The CSV file must:
 
-- Être encodé en UTF-8
-- Utiliser `;` comme séparateur de colonnes
-- Avoir **en première colonne un champ `set`**
-- Contenir les **15 éléments Dublin Core** suivants (dans n'importe quel ordre après `set`, `identifier`, `date`) :
+- Be UTF-8 encoded
+- Use `;` as the column separator
+- Have a **`set` field in the first column**
+- Contain the following **15 Dublin Core elements** (in any order after `set`, `identifier`, `date`):
 
 ```csv
 set;identifier;date;title;creator;subject;description;publisher;contributor;type;format;source;language;relation;coverage;rights
@@ -41,15 +41,15 @@ set;identifier;date;title;creator;subject;description;publisher;contributor;type
 
 ## Installation
 
-1. Placez les fichiers `oai.pl` et `data.csv` dans votre répertoire `cgi-bin`.
+1. Place the `oai.pl` and `data.csv` files in your `cgi-bin` directory.
 
-2. Donnez les droits d’exécution :
+2. Make the script executable:
 
 ```bash
 chmod +x oai.pl
 ```
 
-3. Accédez à votre serveur à l’URL :
+3. Access your server at the following URL:
 
 ```
 http://localhost/cgi-bin/oai.pl?verb=Identify
@@ -57,20 +57,20 @@ http://localhost/cgi-bin/oai.pl?verb=Identify
 
 ---
 
-## Verbes supportés
+## Supported Verbs
 
-| Verbe OAI       | Description |
-|------------------|-------------|
-| `Identify`        | Informations sur le dépôt |
-| `ListMetadataFormats` | Retourne les formats de métadonnées pris en charge |
-| `ListIdentifiers`     | Liste les en-têtes des enregistrements |
-| `ListRecords`         | Liste complète des enregistrements Dublin Core |
-| `GetRecord`           | Récupère un enregistrement spécifique |
-| `ListSets`            | Retourne les ensembles disponibles (`setSpec`) |
+| OAI Verb           | Description |
+|--------------------|-------------|
+| `Identify`         | Information about the repository |
+| `ListMetadataFormats` | Returns supported metadata formats |
+| `ListIdentifiers`      | Lists record headers |
+| `ListRecords`          | Full list of Dublin Core records |
+| `GetRecord`            | Retrieves a specific record |
+| `ListSets`             | Returns available sets (`setSpec`) |
 
 ---
 
-## Exemple d’appel
+## Example Call
 
 ```http
 GET /cgi-bin/oai.pl?verb=ListRecords&metadataPrefix=oai_dc&set=set1
@@ -78,26 +78,25 @@ GET /cgi-bin/oai.pl?verb=ListRecords&metadataPrefix=oai_dc&set=set1
 
 ---
 
-## Notes et limitations
+## Notes and Limitations
 
-- Le script ne dépend **d’aucune bibliothèque externe**.
-- Les données sont intégralement extraites depuis `data.csv`.
-- La pagination se fait via `resumptionToken`.
-- Le script n'implémente pas les fonctionalités de `deleted`, `from`, `until` de l'OAI dans la mesure où il doit rester très léger pour les utilisateurs non spécialiste de l'OAI. Pour celles et ceux qui souhaitent une intégration complète du protocole OAI-PMH, d'autres outils sont disponibles avec une gestion plus fine (Dataverse, Omeka Classic ou S, etc.).
-- Ce serveur ne convient pas pour des fichiers csv de taille importante, d'autres outils sont disponibles pour des très grand volume de données (Dataverse, etc.).
+- The script does **not depend on any external libraries**.
+- All data is extracted directly from `data.csv`.
+- Pagination is handled via `resumptionToken`.
+- The script does not implement the `deleted`, `from`, or `until` functionalities of OAI, as it is intended to remain lightweight for users unfamiliar with OAI. For those seeking full OAI-PMH protocol support, other tools provide more advanced handling (Dataverse, Omeka Classic or S, etc.).
+- This server is not suitable for large CSV files; other tools are available for handling very large datasets (e.g., Dataverse).
 
 ---
 
-## Licence et citation
+## License and Citation
 
-Ce projet est open-source, voir le fichier LICENSE pour plus d'information.
+This project is open-source. See the LICENSE file for more information.
 
-Citation : POUYLLAU, S. (CNRS) with Mistral 7b, _CSV2OAI : Serveur OAI-PMH pour fichier CSV (The definitive Perl version)_, juillet 2025.
+Citation: POUYLLAU, S. (CNRS) with Mistral 7b, _CSV2OAI: OAI-PMH Server for CSV File (The definitive Perl version)_, July 2025.
 
 ---
 
 ## Contact
 
-Créé par Stéphane Pouyllau, ingénieur de recherche CNRS. 
-Date : juillet 2025.
-
+Created by Stéphane Pouyllau, CNRS research engineer.  
+Date: July 2025.

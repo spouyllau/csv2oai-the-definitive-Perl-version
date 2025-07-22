@@ -34,7 +34,7 @@ The CSV file must:
 - Contain the following **15 Dublin Core elements** (in any order after `set`, `identifier`, `date`):
 
 ```csv
-set;identifier;date;title;creator;subject;description;publisher;contributor;type;format;source;language;relation;coverage;rights
+set;identifier_oai;identifier;title;creator;subject;description;publisher;date;type;format;language;coverage;rights;relation;
 ```
 
 ---

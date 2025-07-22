@@ -23,7 +23,7 @@
 </table>
   <p>Query interface for different verbs from OAI-PMH Server. In this “Definitive Perl version“ (Perl will conquer!) of the server, the data.csv file push data to the OAI verb feed.</p>
   <form id="oaiForm">
-    <label>Verbe :
+    <label>Verb :
       <select name="verb" id="verb">
         <option value="Identify">Identify</option>
         <option value="ListMetadataFormats">ListMetadataFormats</option>
@@ -35,8 +35,8 @@
     </label><br>
     <label>Identifier : <input type="text" name="identifier" placeholder="oai:example.org:1"></label><br>
     <label>metadataPrefix : <input type="text" name="metadataPrefix" value="oai_dc"></label><br>
-    <label>resumptionToken (à 10 entrées par défaut : voir le paramètre $batchSize) : <input type="text" name="resumptionToken" placeholder="0"></label><br>
-    <button type="submit">Envoyer</button>
+    <label>resumptionToken (10 by default, see $batchSize) : <input type="text" name="resumptionToken" placeholder="0"></label><br>
+    <button type="submit">Submit</button>
   </form>
 
   <textarea id="output" readonly></textarea>

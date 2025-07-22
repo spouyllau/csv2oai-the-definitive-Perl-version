@@ -23,11 +23,13 @@ my $metadataPrefix = $q->param('metadataPrefix');
 my $resumptionToken = $q->param('resumptionToken');
 my $set = $q->param('set');
 
-my $baseURL = $q->url(-absolute => 1);
+#my $baseURL = $q->url(-absolute => 1);
+my $baseURL = 'https://www.stephanepouyllau.org/oai-perl/oai.pl';
 my $date = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime);
 
-print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-print "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\">\n";
+print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+print "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
+         http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n";
 print "  <responseDate>$date</responseDate>\n";
 print "  <request verb=\"$verb\">$baseURL</request>\n";
 
@@ -38,7 +40,7 @@ if ($verb eq 'Identify') {
     <baseURL>$baseURL</baseURL>
     <protocolVersion>2.0</protocolVersion>
     <adminEmail>admin\@example.com</adminEmail>
-    <earliestDatestamp>1900-01-01</earliestDatestamp>
+    <earliestDatestamp>1700-01-01</earliestDatestamp>
     <deletedRecord>no</deletedRecord>
     <granularity>YYYY-MM-DD</granularity>
   </Identify>
@@ -55,7 +57,23 @@ IDENTIFY
   </ListMetadataFormats>
 FORMATS
 
-} elsif ($verb eq 'ListIdentifiers' || $verb eq 'ListRecords') {
+# ListIdentifiers
+} elsif ($verb eq 'ListIdentifiers') {
+    my $offset = $resumptionToken || 0;
+    my @filtered = defined($set) ? grep { $_->{set} eq $set } @records : @records;
+    my @chunk = splice(@filtered, $offset, $batch_size);
+    
+    print "  <$verb>\n";
+    foreach my $r (@chunk) {
+        print_identifiers($r, $verb eq 'ListIdentifiers');
+    }
+    if ($offset + $batch_size < @filtered) {
+        print "    <resumptionToken>" . ($offset + $batch_size) . "</resumptionToken>\n";
+    }
+    print "  </$verb>\n";
+
+# ListRecords
+} elsif ($verb eq 'ListRecords') {
     my $offset = $resumptionToken || 0;
     my @filtered = defined($set) ? grep { $_->{set} eq $set } @records : @records;
     my @chunk = splice(@filtered, $offset, $batch_size);
@@ -69,6 +87,7 @@ FORMATS
     }
     print "  </$verb>\n";
 
+#GetRecord
 } elsif ($verb eq 'GetRecord') {
     if ($identifier) {
         my ($record) = grep { $_->{identifier_oai} eq $identifier } @records;
@@ -84,7 +103,7 @@ FORMATS
     $sets{$_->{set}}++ for grep { $_->{set} } @records;
     print "  <ListSets>\n";
     for my $s (sort keys %sets) {
-        print "    <set><setSpec>$s</setSpec><setName>$s</setName></set>\n";
+        print "    <set><setSpec>$s</setSpec>\n<setName>$s</setName></set>\n";
     }
     print "  </ListSets>\n";
 
@@ -113,6 +132,20 @@ sub load_records {
     return @records;
 }
 
+# For ListIdentifiers
+# Print header and metadata (if $full = true)
+sub print_identifiers {
+    my ($r, $full) = @_;
+    #print "    <record>\n";
+    print "      <header>\n";
+    print "        <identifier>$r->{identifier_oai}</identifier>\n";
+    print "        <datestamp>$r->{date}</datestamp>\n";
+    print "        <setSpec>$r->{set}</setSpec>\n" if $r->{set};
+    print "      </header>\n";
+    #print "    </record>\n";
+}
+
+#For ListRecords
 # Print header and metadata (if $full = true)
 sub print_record {
     my ($r, $full) = @_;
@@ -131,7 +164,7 @@ sub print_record {
                    xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/
                    http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">
 XML
-        for my $field (qw/title identifier creator subject description publisher contributor date type format identifier source language relation coverage rights/) {
+        for my $field (qw/title identifier creator subject description publisher contributor date type format source language relation coverage rights/) {
             print "          <dc:$field>$r->{$field}</dc:$field>\n" if $r->{$field};
         }
         print "        </oai_dc:dc>\n      </metadata>\n";

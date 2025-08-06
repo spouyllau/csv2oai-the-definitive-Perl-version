@@ -2,6 +2,8 @@
 
 This project implements a minimal **OAI-PMH** server in **Perl 5** (🐪 Perl will prevail!), reading its data from a **CSV** file formatted according to the _Dublin Core Element Set_. OAI-PMH is a protocol for metadata harverting since 1999 : see [Open Archives Initiative Protocol for Metadata Harvesting](https://www.openarchives.org/pmh/).
 
+Also available for [PHP ≥ 7.2](https://github.com/spouyllau/csv2oai).
+
 ---
 
 ## Prerequisites

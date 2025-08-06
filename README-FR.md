@@ -40,7 +40,7 @@ Le fichier CSV doit :
 set;identifier_oai;identifier;title;creator;subject;description;publisher;date;type;format;language;coverage;rights;relation;
 ```
 
-:warning: L'ordre des champs DC peut-être géré à la ligne 180 du fichier oai.pl
+:warning: Il est possible de modifier l'ordre des champs DC à la ligne 180 du fichier oai.pl
 ---
 
 ## Installation
@@ -53,7 +53,7 @@ set;identifier_oai;identifier;title;creator;subject;description;publisher;date;t
 chmod +x oai.pl
 ```
 
-3. **Vous devez adapter à votre serveur la variable $baseURL. Par exemple : my $baseURL = 'https://votreserveurWeb.org/oai-pmh/oai.pl';
+3. :warning: **Vous DEVEZ adapter à votre serveur la variable $baseURL. Par exemple : my $baseURL = 'https://votreserveurWeb.org/oai-pmh/oai.pl';
 
 4. Accédez à votre serveur à l’URL :
 

@@ -42,7 +42,7 @@ The CSV file must:
 set;identifier_oai;identifier;title;creator;subject;description;publisher;date;type;format;language;coverage;rights;relation;
 ```
 
-:warning: **You must adapt the ordre of fields on the line 180 of oai.pl.**
+:warning: **You can adapt the order of DC fields on the line 180 of oai.pl.**
 
 ---
 
@@ -56,7 +56,7 @@ set;identifier_oai;identifier;title;creator;subject;description;publisher;date;t
 chmod +x oai.pl
 ```
 
-3. **You must change the $baseURL variable to your Web server URL, eg. : my $baseURL = 'https://yourserver.org/oai-pmh/oai.pl';
+3. :warning: **You MUST change the $baseURL variable to your Web server URL, eg. : my $baseURL = 'https://yourserver.org/oai-pmh/oai.pl';
 
 4. Access your server at the following URL:
 

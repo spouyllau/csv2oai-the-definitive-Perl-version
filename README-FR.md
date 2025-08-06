@@ -1,6 +1,6 @@
 # CSV2OAI : Serveur OAI-PMH pour fichier CSV (The definitive Perl version)
 
-Ce projet implémente un serveur **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) minimal en **Perl 5** (🐪 Perl vaincra !), lisant ses données depuis un fichier **CSV** conforme au format _Dublin Core Element Set_.
+Ce projet implémente un serveur **OAI-PMH** minimal en **Perl 5** (🐪 Perl vaincra !), lisant ses données depuis un fichier **CSV** conforme au format _Dublin Core Element Set_. OAI-PMH est un protocol pour l'échange de metadonnées et de données depuis 1999 : voir le site officiel [Open Archives Initiative Protocol for Metadata Harvesting](https://www.openarchives.org/pmh/).
 
 ---
 
@@ -39,6 +39,7 @@ Le fichier CSV doit :
 set;identifier_oai;identifier;title;creator;subject;description;publisher;date;type;format;language;coverage;rights;relation;
 ```
 
+:warning: L'ordre des champs DC peut-être géré à la ligne 180 du fichier oai.pl
 ---
 
 ## Installation
@@ -51,7 +52,9 @@ set;identifier_oai;identifier;title;creator;subject;description;publisher;date;t
 chmod +x oai.pl
 ```
 
-3. Accédez à votre serveur à l’URL :
+3. **Vous devez adapter à votre serveur la variable $baseURL. Par exemple : my $baseURL = 'https://votreserveurWeb.org/oai-pmh/oai.pl';
+
+4. Accédez à votre serveur à l’URL :
 
 ```
 http://localhost/cgi-bin/oai.pl?verb=Identify

@@ -19,7 +19,7 @@ my $set = $q->param('set');
 
 # base URL of the server (auto of manuel)
 #my $baseURL = $q->url(-absolute => 1);
-my $baseURL = 'https://www.stephanepouyllau.org/oai-perl/oai.pl';
+my $baseURL = 'https://yourserverWebURL.org/oai-pmh/oai.pl';
 
 my $date = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime);
 

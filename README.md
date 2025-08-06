@@ -1,6 +1,6 @@
 # CSV2OAI: OAI-PMH Server for CSV File (The definitive Perl version)
 
-This project implements a minimal **OAI-PMH** (Open Archives Initiative Protocol for Metadata Harvesting) server in **Perl 5** (🐪 Perl will prevail!), reading its data from a **CSV** file formatted according to the _Dublin Core Element Set_.
+This project implements a minimal **OAI-PMH** server in **Perl 5** (🐪 Perl will prevail!), reading its data from a **CSV** file formatted according to the _Dublin Core Element Set_. OAI-PMH is a protocol for metadata harverting since 1999 : see [Open Archives Initiative Protocol for Metadata Harvesting](https://www.openarchives.org/pmh/).
 
 ---
 
@@ -32,18 +32,21 @@ The CSV file must:
 
 - Be UTF-8 encoded
 - Use `;` as the column separator
-- Have a **`set` field in the first column**
+- Have a **`set` (for OAI sets) field in the first column**
+- Have a **OAI identifier field in the identifier_oai column**
 - Contain the following **15 Dublin Core elements** (in any order after `set`, `identifier`, `date`):
 
 ```csv
 set;identifier_oai;identifier;title;creator;subject;description;publisher;date;type;format;language;coverage;rights;relation;
 ```
 
+:warning: **You must adapt the ordre of fields on the line 180 of oai.pl.**
+
 ---
 
 ## Installation
 
-1. Place the `oai.pl` and `data.csv` files in your `cgi-bin` directory.
+1. Place the `oai.pl` and `data.csv` files in your `cgi-bin` directory (or other, for example /oai-pmh/).
 
 2. Make the script executable:
 
@@ -51,10 +54,12 @@ set;identifier_oai;identifier;title;creator;subject;description;publisher;date;t
 chmod +x oai.pl
 ```
 
-3. Access your server at the following URL:
+3. **You must change the $baseURL variable to your Web server URL, eg. : my $baseURL = 'https://yourserver.org/oai-pmh/oai.pl';
+
+4. Access your server at the following URL:
 
 ```
-http://localhost/cgi-bin/oai.pl?verb=Identify
+http://yourserver.org/oai-pmh/oai.pl?verb=Identify
 ```
 
 ---
